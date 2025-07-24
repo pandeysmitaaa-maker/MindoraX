@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome- Mindorax</title>
+    <style>
+        body{
+            margin: 0;
+            height:100vh;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg,#1a0033,#0d001a, #330066);
+            color: white;
+            font-family:Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+        .container{
+            animation:fadein 2s ease-in-out;
+        }
+        h1{
+            font-size: 2.5rem;
+            color: #b3b3ff;
+            text-shadow: 0 0 10 px #6600ff, 0 0 20px #3300cc;
+
+        }
+        button{
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25 px;
+            background: #6600ff;
+            color: white;
+            font-size: 1 rem;
+            cursor: pointer;
+            transition: 0.2s ease;
+
+        }
+        button:hover{
+            background: #9933ff;
+            box-shadow: 0 0 15px #9933ff;
+
+        }
+        @keyframes fadein{
+            from{opacity:0;}
+            to {opacity:1;}
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div class = "container">
+        <h1> Welcome to Mindorax</h1>
+        <h2>lets shape your future</h2>
+        <button onclick="goToLogin()">Let's start</button>
+    </div>
+    <script>
+        function goToLogin(){
+            window.location.href= "login.html"
+        }
+        
+    </script>
+    
+</body>
+</html>

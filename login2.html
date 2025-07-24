@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - MindoraX</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+    body {
+      margin: 0;
+      font-family: 'Poppins', Arial, sans-serif;
+      background: radial-gradient(circle at top, #1a0033, #340761, #000);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff;
+    }
+    .login-container {
+      width: 320px;
+      padding: 30px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 10px rgba(255, 0, 255, 0.3), 0 0 40px rgba(0, 255, 255, 0.3);
+      text-align: center;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+    .login-container h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: #ff66ff;
+      text-shadow: 0 0 5px #ff33cc, 0 0 10px #ff66ff;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 25px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+      transition: 0.3s;
+    }
+    input:focus {
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 15px #00ffff, 0 0 20px #ff33cc;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 25px;
+      background: linear-gradient(135deg, #ff33cc, #00ffff);
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+      text-shadow: 0 0 5px #000;
+    }
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #ff66ff, 0 0 20px #00ffff;
+    }
+    p {
+      font-size: 0.8rem;
+      color: #ccc;
+      margin-top: 10px;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login to MindoraX</h2>
+    <input type="text" id="username" placeholder="Enter Your Name" />
+    <input type="email" id="email" placeholder="Enter Your Email" />
+    <button onclick="login()">Login</button>
+    <p>Welcome to your focus dashboard.</p>
+  </div>
+
+  <script>
+    function login() {
+      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
+
+      if (!username || !email) {
+        alert('Please enter your name and email.');
+        return;
+      }
+
+      // Store username for use in dashboard
+      localStorage.setItem('username', username);
+      // Optionally store email too
+      localStorage.setItem('email', email);
+
+      // Redirect to dashboard
+      window.location.href = "mindorax.html";
+    }
+  </script>
+  <script>
+    
+function submitForm() {
+  const username = document.getElementById("username").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const otp = Math.floor(100000 + Math.random() * 900000); // 6-digit OTP
+
+  if (!username || !email) {
+    alert("Please enter all fields");
+    return;
+  }
+
+  // Store OTP and username locally (for otp.html)
+  localStorage.setItem("username", username);
+  localStorage.setItem("otp", otp);
+
+  // ✅ CONNECT to your n8n webhook
+  fetch("http://localhost:5678/webhook-test/send-otp", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ username, email, otp })
+  })
+  .then(res => res.json())
+  .then(data => {
+    alert(data.message || "OTP sent");
+    window.location.href = "otp.html";
+  })
+  .catch(error => {
+    alert("Webhook failed!");
+    console.error(error);
+  });
+}
+</script>
+
+  </script>
+</body>
+</html>
